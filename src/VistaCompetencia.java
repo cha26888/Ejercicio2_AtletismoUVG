@@ -18,7 +18,7 @@ public class VistaCompetencia {
         System.out.println("6. Mostrar promedio");
         System.out.println("7. Mostrar mejor y mayor tiempo");
         System.out.println("8. Consultar intentos disponibles");
-        System.out.println("9. Salir");
+        System.out.println("0. Salir");
         System.out.print("Selecciona una opción: ");
     }
 
