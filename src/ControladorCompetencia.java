@@ -18,7 +18,8 @@ public class ControladorCompetencia {
 
             if (opcion >= 2 && opcion <= 8 && atletaActivo == null) {
                 vista.mostrarMensaje("¡Error! Primero debes registrar un atleta (opción 1).");
-                continue;
+                continue; 
+            }
 
             switch (opcion) {
                 case 1:
@@ -65,8 +66,9 @@ public class ControladorCompetencia {
             }
 
             } while (opcion != 9);
-        }
     }
+    
+    
 
     private void nuevoAtleta() {
 
@@ -97,6 +99,13 @@ public class ControladorCompetencia {
             }
         } else {
             vista.mostrarMensaje("¡Error! Se ha alcanzado el límite de intentos para este atleta.");
+        }
+    }
+
+    private void consultarTiempos() {
+        for (int i = 0; i < atletaActivo.getCantidadIntentos(); i++) {
+        double tiempo = atletaActivo.consultarTiempo(i + 1);
+        vista.mostrarMensaje("Intento " + (i + 1) + ": " + tiempo);
         }
     }
 
