@@ -54,7 +54,7 @@ public class ControladorCompetencia {
                     consultarIntentosDisponibles();
                     break;
 
-                case 9:
+                case 0:
                     System.out.println("Saliendo...");
                     break;
 
@@ -68,8 +68,6 @@ public class ControladorCompetencia {
             } while (opcion != 9);
     }
     
-    
-
     private void nuevoAtleta() {
 
         String nombre = vista.leerNombreAtleta();
@@ -112,18 +110,29 @@ public class ControladorCompetencia {
     private void consultarIntento() {
         int numero = vista.leerNumeroIntento();
 
-        if (numero >= 1 && numero <= atletaActivo.getCantidadIntentos()) {
-            double tiempo = atletaActivo.consultarTiempo(numero);
-            vista.mostrarMensaje("Intento " + numero + ": " + tiempo);
-        } else {
-            vista.mostrarMensaje("¡Error! Ese intento no ha sido registrado.");
+        if (numero < 1 || numero > 10) {
+            vista.mostrarMensaje("¡Error! No hay más de 10 intentos.");
+            return;
         }
+
+        if (numero > atletaActivo.getCantidadIntentos()) {
+            vista.mostrarMensaje("¡Error! Ese intento no ha sido registrado.");
+            return;
+        }
+
+        double tiempo = atletaActivo.consultarTiempo(numero);
+        vista.mostrarMensaje("Intento " + numero + ": " + tiempo);
     }
 
     private void modificarTiempo() {
         int numero = vista.leerNumeroIntento();
 
-        if (numero < 1 || numero > atletaActivo.getCantidadIntentos()) {
+        if (numero < 1 || numero > 10) {
+            vista.mostrarMensaje("¡Error! No hay más de 10 intentos.");
+            return;
+        }
+
+        if (numero > atletaActivo.getCantidadIntentos()) {
             vista.mostrarMensaje("¡Error! Ese intento no ha sido registrado.");
             return;
         }
@@ -135,10 +144,10 @@ public class ControladorCompetencia {
             return;
         }
 
-
         atletaActivo.modificarTiempo(numero, nuevoTiempo);
         vista.mostrarMensaje("¡Tiempo modificado!");
     }
+
     private void mostrarPromedio() {
         if (atletaActivo.getCantidadIntentos() > 0) {
             vista.mostrarMensaje("Promedio: " + atletaActivo.calcularPromedio());
