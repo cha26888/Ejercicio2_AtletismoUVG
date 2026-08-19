@@ -122,15 +122,23 @@ public class ControladorCompetencia {
 
     private void modificarTiempo() {
         int numero = vista.leerNumeroIntento();
+
+        if (numero < 1 || numero > atletaActivo.getCantidadIntentos()) {
+            vista.mostrarMensaje("¡Error! Ese intento no ha sido registrado.");
+            return;
+        }
+
         double nuevoTiempo = vista.leerTiempo();
 
-        if (atletaActivo.modificarTiempo(numero, nuevoTiempo)) {
-            vista.mostrarMensaje("¡Tiempo modificado!");
-        } else {
-            vista.mostrarMensaje("¡Error! No se pudo modificar (intento inválido o tiempo <= 0).");
+        if (!atletaActivo.validarMayorCero(nuevoTiempo)) {
+            vista.mostrarMensaje("¡Error! El tiempo debe ser mayor que cero.");
+            return;
         }
-    }
 
+
+        atletaActivo.modificarTiempo(numero, nuevoTiempo);
+        vista.mostrarMensaje("¡Tiempo modificado!");
+    }
     private void mostrarPromedio() {
         if (atletaActivo.getCantidadIntentos() > 0) {
             vista.mostrarMensaje("Promedio: " + atletaActivo.calcularPromedio());
